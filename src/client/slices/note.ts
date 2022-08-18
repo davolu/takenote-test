@@ -86,6 +86,15 @@ const noteSlice = createSlice({
       )
     },
 
+
+    removeAllNoteItalics: (state, { payload }: PayloadAction<NoteItem>) => {
+      state.notes = state.notes.map((note) =>
+        note.id === payload.id
+          ? { ...note, text: payload.text.replaceAll(/\*[\w*!\s]/ig, 'replace'), lastUpdated: payload.lastUpdated }
+          : note
+      )
+    },
+
     updateNotes: (
       state,
       {
@@ -328,6 +337,7 @@ export const {
   addNote,
   updateNote,
   updateNotes,
+  removeAllNoteItalics,
   deleteNotes,
   addCategoryToNote,
   removeCategoryFromNotes,
