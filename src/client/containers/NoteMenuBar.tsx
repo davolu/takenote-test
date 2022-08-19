@@ -102,7 +102,7 @@ export const NoteMenuBar = () => {
     _toggleDarkTheme()
     _updateCodeMirrorOption('theme', darkTheme ? 'base16-light' : 'new-moon')
   }
-  const activateDontPanicMode = () => {
+  const activateDontPanicModeHandler = () => {
     removeItalics(activeNote)
   }
   const togglePreviewHandler = () => {
@@ -156,11 +156,11 @@ export const NoteMenuBar = () => {
           </button>
           <button
             className="note-menu-bar-button uuid"
-            onClick={activateDontPanicMode}
+            onClick={activateDontPanicModeHandler}
             data-testid={TestID.UUID_MENU_BAR_ITALICS_REMOVE_ICON}
           >
-            {removeItalicsIcon} Remove Italics
-            <span className="sr-only">Remove Italics</span>
+            {removeItalicsIcon} Don't Panic
+            <span className="sr-only">Don't Panic</span>
           </button>
 
         </nav>
