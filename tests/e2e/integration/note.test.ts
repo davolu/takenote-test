@@ -94,6 +94,19 @@ describe('Manage notes test', () => {
     cy.get('a').should('exist')
   })
 
+  it('should remove * on click of remove italics button', () => {
+    createXUniqueNotes(3)
+    holdKeyAndClickNoteAtIndex(1, 'meta')
+    clickCreateNewNote()
+    cy.get('.CodeMirror textarea').invoke('val', '*this is italics*')
+
+    clickDynamicTestID(TestID.UUID_MENU_BAR_ITALICS_REMOVE_ICON)
+
+    clickDynamicTestID(TestID.PREVIEW_MODE)
+    cy.get('.CodeMirror textarea').should('contain','this is italics')
+  })
+
+
   it('should not link to another vote if an invalid uuid is provided', () => {
     createXUniqueNotes(3)
     holdKeyAndClickNoteAtIndex(1, 'meta')

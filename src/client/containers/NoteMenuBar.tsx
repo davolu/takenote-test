@@ -11,6 +11,7 @@ import {
   Settings,
   Sun,
   Moon,
+  Italic,
   Clipboard as ClipboardCmp,
 } from 'react-feather'
 
@@ -23,7 +24,7 @@ import {
   toggleDarkTheme,
   updateCodeMirrorOption,
 } from '@/slices/settings'
-import { toggleFavoriteNotes, toggleTrashNotes } from '@/slices/note'
+import { removeAllNoteItalics, toggleFavoriteNotes, toggleTrashNotes } from '@/slices/note'
 import { getCategories, getNotes, getSync, getSettings } from '@/selectors'
 import { downloadNotes, isDraftNote, getShortUuid, copyToClipboard } from '@/utils/helpers'
 import { sync } from '@/slices/sync'
@@ -42,7 +43,9 @@ export const NoteMenuBar = () => {
   // Other
   // ===========================================================================
 
-  const copyNoteIcon = <ClipboardCmp size={18} aria-hidden="true" focusable="false" />
+  const copyNoteIcon =      <ClipboardCmp size={18} aria-hidden="true" focusable="false" />
+  const removeItalicsIcon = <Italic size={18} aria-hidden="true" focusable="false" />
+
   const successfulCopyMessage = 'Note copied!'
   const activeNote = notes.find((note) => note.id === activeNoteId)!
   const shortNoteUuid = getShortUuid(activeNoteId)
@@ -84,6 +87,8 @@ export const NoteMenuBar = () => {
   const _updateCodeMirrorOption = (key: string, value: any) =>
     dispatch(updateCodeMirrorOption({ key, value }))
 
+  const removeItalics = (notes: NoteItem) =>
+    dispatch(removeAllNoteItalics(notes))
   // ===========================================================================
   // Handlers
   // ===========================================================================
@@ -96,6 +101,9 @@ export const NoteMenuBar = () => {
   const toggleDarkThemeHandler = () => {
     _toggleDarkTheme()
     _updateCodeMirrorOption('theme', darkTheme ? 'base16-light' : 'new-moon')
+  }
+  const activateDontPanicModeHandler = () => {
+    removeItalics(activeNote)
   }
   const togglePreviewHandler = () => {
     togglePreviewIcon(!isToggled)
@@ -146,6 +154,15 @@ export const NoteMenuBar = () => {
             {uuidCopiedText && <span className="uuid-copied-text">{uuidCopiedText}</span>}
             <span className="sr-only">Copy note</span>
           </button>
+          <button
+            className="note-menu-bar-button uuid"
+            onClick={activateDontPanicModeHandler}
+            data-testid={TestID.UUID_MENU_BAR_ITALICS_REMOVE_ICON}
+          >
+            {removeItalicsIcon} Don't Panic
+            <span className="sr-only">Don't Panic</span>
+          </button>
+
         </nav>
       ) : (
         <div />

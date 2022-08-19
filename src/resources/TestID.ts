@@ -47,6 +47,7 @@ export enum TestID {
   TEXT_DIRECTION_DROPDOWN = 'text-direction-dropdown',
   UPLOAD_SETTINGS_BACKUP = 'upload-settings-backup',
   UUID_MENU_BAR_COPY_ICON = 'uuid-menu-bar-copy-icon',
+  UUID_MENU_BAR_ITALICS_REMOVE_ICON = 'uuid-menu-bar-italics-remove-icon',
   PREVIEW_MODE = 'preview-mode',
   COPY_REFERENCE_TO_NOTE = 'copy-reference-to-note',
   EMPTY_EDITOR = 'empty-editor',
